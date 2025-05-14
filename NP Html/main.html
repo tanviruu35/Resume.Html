@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bouncing Ball Fun!</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #222;
+    }
+
+    #ball {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ff0, #f90);
+      box-shadow: 0 0 30px #f90;
+      cursor: pointer;
+    }
+
+    #score {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      color: #fff;
+      font-family: 'Comic Sans MS', cursive;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div id="score">Score: 0</div>
+  <div id="ball"></div>
+
+  <script>
+    const ball = document.getElementById("ball");
+    const scoreText = document.getElementById("score");
+    let x = 100, y = 100;
+    let dx = 3 + Math.random() * 2;
+    let dy = 3 + Math.random() * 2;
+    let score = 0;
+
+    function moveBall() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      x += dx;
+      y += dy;
+
+      if (x + 80 > width || x < 0) dx *= -1;
+      if (y + 80 > height || y < 0) dy *= -1;
+
+      ball.style.left = x + "px";
+      ball.style.top = y + "px";
+
+      requestAnimationFrame(moveBall);
+    }
+
+    ball.addEventListener("click", () => {
+      dx = (Math.random() - 0.5) * 10;
+      dy = (Math.random() - 0.5) * 10;
+      score++;
+      scoreText.textContent = "Score: " + score;
+
+      document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 20%)`;
+    });
+
+    moveBall();
+  </script>
+</body>
+</html>
